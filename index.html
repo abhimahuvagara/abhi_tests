@@ -31,7 +31,14 @@
             transition: all 0.5s ease;
         }
 
-        h1 { font-size: 1.8rem; color: #D23369; margin-bottom: 20px; padding: 0 15px; }
+        /* Question style - ensuring single line where possible */
+        h1 { 
+            font-size: 1.6rem; 
+            color: #D23369; 
+            margin-bottom: 20px; 
+            padding: 0 10px;
+            word-wrap: normal;
+        }
 
         .btn-wrapper { display: flex; gap: 20px; justify-content: center; margin-top: 10px; }
 
@@ -39,10 +46,8 @@
         .yes-style { background-color: #D23369; color: white; }
         .no-style { background-color: #f0f0f0; color: #333; }
 
-        /* Hidden initially */
         #q2-area, #success-content, #custom-popup { display: none; }
 
-        /* Popup Box */
         #custom-popup {
             position: fixed;
             top: 50%;
@@ -59,7 +64,6 @@
 
         .grayed-out { background-color: #ccc !important; cursor: not-allowed !important; opacity: 0.5; }
 
-        /* Celebration */
         .gif-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
         .gif-box img { width: 140px; border-radius: 10px; }
     </style>
@@ -76,7 +80,7 @@
         </div>
 
         <div class="question-box" id="q2-area">
-            <h1>Pakka ye last time hai soch lo.<br>Iske baad mukar nai sakte!</h1>
+            <h1>Pakka ye last time hai soch lo, iske baad mukar nai sakte!</h1>
             <div class="btn-wrapper">
                 <button class="yes-style" onclick="finalVictory()">Yes</button>
                 <button class="no-style grayed-out" disabled>No</button>
@@ -94,7 +98,7 @@
 
     <div id="success-content" style="text-align:center; padding: 20px;">
         <h1 style="font-size: 2.5rem;">Yay! I knew it! ❤️</h1>
-        <div class="gif-box">
+        <div class="gif-box" id="final-gifs">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
         </div>
@@ -116,16 +120,10 @@
         }
 
         function revealSecondQuestion() {
-            // Popup band karo
             document.getElementById('custom-popup').style.display = 'none';
-            // Screen wapas normal karo
             document.getElementById('all-questions').style.opacity = '1';
-            
-            // Pehle sawal ke buttons ko disabled ya hide kar dete hain
             document.getElementById('q1-btns').style.pointerEvents = 'none';
             document.getElementById('q1-btns').style.opacity = '0.5';
-
-            // Dusra sawal thik pehle wale ke niche dikhao
             document.getElementById('q2-area').style.display = 'block';
         }
 
