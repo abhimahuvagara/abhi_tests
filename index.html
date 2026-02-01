@@ -11,18 +11,18 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding-top: 100px;
+            padding-top: 80px;
             height: 100vh;
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: sans-serif;
             overflow: hidden;
         }
 
-        h1 { font-size: 3rem; color: #D23369; text-align: center; margin-bottom: 50px; }
+        h1 { font-size: 2.5rem; color: #D23369; text-align: center; margin-bottom: 30px; }
 
-        .btn-container { display: flex; gap: 30px; justify-content: center; width: 100%; position: relative; }
+        .btn-wrapper { display: flex; gap: 20px; justify-content: center; width: 100%; }
 
-        button { padding: 15px 35px; font-size: 1.2rem; border-radius: 12px; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        button { padding: 12px 25px; font-size: 1rem; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; }
 
         #yesBtn, #realYes { background-color: #D23369; color: white; }
 
@@ -30,53 +30,57 @@
 
         /* --- FAKE POPUP STYLE --- */
         #custom-popup {
-            display: none;
+            display: none; /* Hidden by default */
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-            z-index: 1000;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 9999;
             text-align: center;
-            width: 320px;
+            width: 280px;
         }
 
         #fakeNo {
             background-color: #ccc !important;
-            cursor: not-allowed !important;
-            opacity: 0.6;
+            cursor: not-allowed;
+            opacity: 0.5;
         }
 
         /* --- SUCCESS ELEMENTS --- */
-        #gif-container { display: none; margin-top: 30px; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        #gif-container img { width: 180px; border-radius: 10px; }
-        .success-text { display: none; font-size: 2.5rem; color: #D23369; text-align: center; }
+        #success-content { display: none; text-align: center; }
+        .success-text { font-size: 2rem; color: #D23369; margin-bottom: 20px; }
+        .gif-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .gif-box img { width: 150px; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <h1 id="main-question">Will you be my valentine, Pallu?</h1>
-
-    <div class="btn-container" id="btn-wrapper">
-        <button id="yesBtn" onclick="nextStep()">Yes</button>
-        <button id="noBtn" onmouseover="moveButton()">No</button>
+    <div id="first-screen">
+        <h1>Will you be my valentine, Pallu?</h1>
+        <div class="btn-wrapper">
+            <button id="yesBtn" onclick="showPopup()">Yes</button>
+            <button id="noBtn" onmouseover="moveButton()">No</button>
+        </div>
     </div>
 
     <div id="custom-popup">
-        <p style="color:#333; font-weight:bold;">Phir se ek baar soch lo, <br>do you want to be my valentine?</p>
-        <div class="btn-container" style="gap:15px; margin-top:20px;">
-            <button id="realYes" onclick="finalSuccess()">Yes</button>
+        <p style="color:#333; line-height: 1.5;">Ek baar fir soch lo... <br><b>Are you SURE?</b></p>
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
+            <button id="realYes" onclick="finalVictory()">Yes</button>
             <button id="fakeNo" disabled>No</button>
         </div>
     </div>
 
-    <div id="success-message" class="success-text">Yay! I knew it! ❤️</div>
-    <div id="gif-container">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif" alt="Cute GIF">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif" alt="Cute GIF">
+    <div id="success-content">
+        <div class="success-text">Yay! I knew it! ❤️</div>
+        <div class="gif-box">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
+        </div>
     </div>
 
     <script>
@@ -89,20 +93,19 @@
             noBtn.style.top = y + 'px';
         }
 
-        function nextStep() {
-            // Hide main screen
-            document.getElementById('main-question').style.display = 'none';
-            document.getElementById('btn-wrapper').style.display = 'none';
-            // Show fake popup
+        function showPopup() {
+            // Screen 1 hide karo
+            document.getElementById('first-screen').style.opacity = '0.3'; 
+            // Popup show karo
             document.getElementById('custom-popup').style.display = 'block';
         }
 
-        function finalSuccess() {
-            // Hide popup
+        function finalVictory() {
+            // Sab purana hide karo
+            document.getElementById('first-screen').style.display = 'none';
             document.getElementById('custom-popup').style.display = 'none';
-            // Show final victory
-            document.getElementById('success-message').style.display = 'block';
-            document.getElementById('gif-container').style.display = 'flex';
+            // Final success dikhao
+            document.getElementById('success-content').style.display = 'block';
         }
     </script>
 </body>
