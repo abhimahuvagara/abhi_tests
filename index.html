@@ -10,49 +10,44 @@
             background-color: #FFD1DC !important;
             font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-top: 80px;
+            z-index: 10;
         }
 
         h1 { 
             font-size: 3rem; 
             color: #D23369; 
             text-align: center;
-            margin: 20px 0;
-        }
-
-        .single-line {
-            white-space: nowrap; 
-            display: block;
+            margin-bottom: 30px;
         }
 
         .btn-wrapper { 
             display: flex; 
             gap: 25px; 
             justify-content: center;
-            margin-bottom: 50px;
         }
 
         button { 
-            padding: 20px 45px; 
+            padding: 18px 45px; 
             font-size: 1.4rem; 
             border-radius: 15px; 
             border: none; 
             cursor: pointer; 
             font-weight: bold; 
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            transition: 0.3s;
         }
 
         .yes-style { background-color: #D23369; color: white; }
@@ -60,6 +55,7 @@
 
         #step2, #celebration, #popup-box { display: none; }
 
+        /* Popup Box */
         #popup-box {
             position: fixed;
             top: 50%;
@@ -73,30 +69,43 @@
             text-align: center;
         }
 
-        /* --- BIG GIFS LAYOUT --- */
-        .gif-stack {
-            display: flex;
+        /* --- POSITIONED GIFS FOR FULL PAGE LOOK --- */
+        #celebration {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: none; /* Controlled by JS */
             flex-direction: column;
             align-items: center;
-            gap: 40px; /* Space between big GIFs */
-            margin-top: 50px;
-            width: 100%;
+            justify-content: center;
         }
 
-        .gif-stack img {
-            width: 80%; /* Takes up most of the screen width */
-            max-width: 800px; /* But not too crazy large */
-            border-radius: 30px;
+        .main-gif {
+            width: 450px; /* Center GIF size */
+            border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            z-index: 5;
             border: 5px solid white;
         }
+
+        .corner-gif {
+            position: absolute;
+            width: 300px; /* Corner GIFs size */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 4px solid white;
+            z-index: 1;
+        }
+
+        .bottom-left { bottom: 40px; left: 40px; }
+        .bottom-right { bottom: 40px; right: 40px; }
 
         .locked { opacity: 0.4; cursor: not-allowed !important; }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="main-content">
         <div id="step1">
             <h1>Will you be my valentine, Pallu?</h1>
             <div class="btn-wrapper" id="btns1">
@@ -106,21 +115,22 @@
         </div>
 
         <div id="step2">
-            <h1 class="single-line">Pakka ye last time hai soch lo, iske baad mukar nai sakte!</h1>
+            <h1 style="white-space: nowrap;">Pakka ye last time hai soch lo, iske baad mukar nai sakte!</h1>
             <div class="btn-wrapper" id="btns2">
                 <button class="yes-style" onclick="launchCelebration()">Yes</button>
                 <button class="no-style locked" disabled>No</button>
             </div>
         </div>
+    </div>
 
-        <div id="celebration">
-            <h1 style="font-size: 4.5rem;">Yay! I knew it! ❤️</h1>
-            <div class="gif-stack">
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
-            </div>
-        </div>
+    <div id="celebration">
+        <h1 style="font-size: 4.5rem; margin-top: -100px;">Yay! I knew it! ❤️</h1>
+        
+        <img class="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
+        
+        <img class="corner-gif bottom-left" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
+        
+        <img class="corner-gif bottom-right" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
     </div>
 
     <div id="popup-box">
@@ -149,35 +159,29 @@
             document.getElementById('btns1').style.pointerEvents = 'none';
             if(document.getElementById('noBtn')) document.getElementById('noBtn').remove();
             document.getElementById('step2').style.display = 'block';
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
         function launchCelebration() {
-            document.getElementById('btns2').style.opacity = '0.3';
-            document.getElementById('btns2').style.pointerEvents = 'none';
-            document.getElementById('celebration').style.display = 'block';
+            // Hide everything else
+            document.getElementById('main-content').style.display = 'none';
             
-            // Confetti Burst
-            var end = Date.now() + (5 * 1000);
-            (function frame() {
-                confetti({
-                    particleCount: 3,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#D23369', '#FFD1DC', '#ffffff']
-                });
-                confetti({
-                    particleCount: 3,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#D23369', '#FFD1DC', '#ffffff']
-                });
-                if (Date.now() < end) { requestAnimationFrame(frame); }
-            }());
+            // Show celebration section
+            document.getElementById('celebration').style.display = 'flex';
+            
+            // Full Confetti blast
+            var duration = 10 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1001 };
 
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
         }
     </script>
 </body>
