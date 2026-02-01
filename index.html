@@ -21,7 +21,7 @@
 
         .fancy-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 7rem;
+            font-size: 7.5rem;
             color: #D23369;
             text-shadow: 4px 4px 15px rgba(0,0,0,0.1);
             animation: heartbeat 1.5s infinite ease-in-out;
@@ -151,26 +151,28 @@
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('celebration').style.display = 'flex';
             
-            var duration = 20 * 1000; // 20 Seconds celebration
+            var duration = 20 * 1000;
             var end = Date.now() + duration;
 
             (function frame() {
-                // Higher particle count for more quantity
+                // Left side rainbow spray
                 confetti({
-                    particleCount: 5,
+                    particleCount: 6,
                     angle: 60,
-                    spread: 70,
+                    spread: 75,
                     origin: { x: 0, y: 0 },
                     zIndex: 10,
-                    colors: ['#D23369', '#FFD1DC', '#ffffff', '#FF69B4']
+                    // Colorful palette added
+                    colors: ['#ff0000', '#ffa500', '#ffff00', '#008000', '#0000ff', '#4b0082', '#ee82ee', '#D23369', '#ffffff']
                 });
+                // Right side rainbow spray
                 confetti({
-                    particleCount: 5,
+                    particleCount: 6,
                     angle: 120,
-                    spread: 70,
+                    spread: 75,
                     origin: { x: 1, y: 0 },
                     zIndex: 10,
-                    colors: ['#D23369', '#FFD1DC', '#ffffff', '#FF69B4']
+                    colors: ['#ff0000', '#ffa500', '#ffff00', '#008000', '#0000ff', '#4b0082', '#ee82ee', '#D23369', '#ffffff']
                 });
 
                 if (Date.now() < end) {
