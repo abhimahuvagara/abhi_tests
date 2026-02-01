@@ -19,20 +19,20 @@
             overflow: hidden;
         }
 
-        /* --- FANCY MOTION TEXT --- */
+        /* --- ZOOMING I LOVE YOU TEXT --- */
         .fancy-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 6.5rem; /* Bada font size */
+            font-size: 7rem;
             color: #D23369;
-            text-shadow: 3px 3px 10px rgba(0,0,0,0.1);
-            animation: heartbeat 1.5s infinite ease-in-out; /* Zoom in-out motion */
-            margin-bottom: 20px;
+            text-shadow: 4px 4px 15px rgba(0,0,0,0.1);
+            animation: heartbeat 1.5s infinite ease-in-out;
+            margin-top: 20px;
+            z-index: 100;
         }
 
-        /* Heartbeat Animation Logic */
         @keyframes heartbeat {
             0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
 
@@ -41,28 +41,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 100px;
+            padding-top: 120px;
         }
 
-        h1 { 
-            font-size: 3rem; 
-            color: #D23369; 
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
+        h1 { font-size: 3rem; color: #D23369; text-align: center; margin-bottom: 30px; }
         .btn-wrapper { display: flex; gap: 25px; justify-content: center; }
-
-        button { 
-            padding: 18px 45px; 
-            font-size: 1.4rem; 
-            border-radius: 15px; 
-            border: none; 
-            cursor: pointer; 
-            font-weight: bold; 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
+        button { padding: 18px 45px; font-size: 1.4rem; border-radius: 15px; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
         .yes-style { background-color: #D23369; color: white; }
         .no-style { background-color: #f0f0f0; color: #333; }
 
@@ -70,41 +54,38 @@
 
         #popup-box {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
-            z-index: 1000;
-            text-align: center;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; padding: 40px; border-radius: 25px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3); z-index: 1000; text-align: center;
         }
 
+        /* --- BIGGEST GIFS LAYOUT --- */
         #celebration {
-            width: 100%;
+            width: 100vw;
             height: 100vh;
-            display: none; 
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            background-color: #FFD1DC;
         }
 
         .gif-row {
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly; /* Pure screen pe spread honge */
             align-items: center;
-            gap: 20px;
             width: 98%;
+            height: 60vh; /* Takes up most of the screen height */
+            gap: 10px;
         }
 
-        .gif-box {
-            width: 31%;
-            max-width: 380px;
-            border-radius: 20px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.25);
-            border: 6px solid white;
-            background-color: white;
+        .mega-gif {
+            width: 32%; /* Maximum possible width for 3 GIFs in a row */
+            height: 450px; /* Massive height */
+            object-fit: cover; /* GIF crop nahi hoga, box bhar dega */
+            border-radius: 25px;
+            border: 8px solid white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
         .locked { opacity: 0.4; cursor: not-allowed !important; }
@@ -132,11 +113,10 @@
 
     <div id="celebration">
         <div class="fancy-text">I Love You! ❤️</div>
-        
         <div class="gif-row">
-            <img class="gif-box" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
-            <img class="gif-box" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
-            <img class="gif-box" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
+            <img class="mega-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
+            <img class="mega-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
+            <img class="mega-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
         </div>
     </div>
 
@@ -175,9 +155,9 @@
             var interval = setInterval(function() {
                 var timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) return clearInterval(interval);
-                confetti({ particleCount: 50, spread: 80, origin: { x: 0.1, y: 0.5 } });
-                confetti({ particleCount: 50, spread: 80, origin: { x: 0.9, y: 0.5 } });
-            }, 250);
+                confetti({ particleCount: 60, spread: 90, origin: { x: 0.1, y: 0.5 } });
+                confetti({ particleCount: 60, spread: 90, origin: { x: 0.9, y: 0.5 } });
+            }, 200);
         }
     </script>
 </body>
