@@ -6,7 +6,7 @@
     <title>For Pallu ❤️</title>
     <style>
         body {
-            background-color: #FFD1DC;
+            background-color: #FFD1DC !important; /* Fixed Baby Pink */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -18,39 +18,42 @@
             overflow-x: hidden;
         }
 
+        /* Sabse bade fonts yahan hain */
         h1 { 
-            font-size: 2.8rem; 
+            font-size: 3rem; 
             color: #D23369; 
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            padding: 0 20px;
         }
 
         .btn-wrapper { 
             display: flex; 
-            gap: 25px; 
+            gap: 30px; 
             justify-content: center; 
         }
 
         button { 
-            padding: 15px 35px; 
-            font-size: 1.2rem; 
-            border-radius: 12px; 
+            padding: 18px 40px; 
+            font-size: 1.3rem; 
+            border-radius: 15px; 
             border: none; 
             cursor: pointer; 
             font-weight: bold; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
 
         .yes-style { background-color: #D23369; color: white; }
         .no-style { background-color: #f0f0f0; color: #333; }
 
-        /* Yeh starting mein sab gayab rakhega */
-        #custom-popup, #q2-area, #success-screen {
+        /* Hidden Sections Initially */
+        #popup-box, #q2-screen, #celebration-screen {
             display: none; 
         }
 
-        /* Popup Box Style */
-        #custom-popup {
+        /* Popup Style */
+        #popup-box {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -58,63 +61,65 @@
             background: white;
             padding: 40px;
             border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            z-index: 10000;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 1000;
             text-align: center;
             width: 320px;
         }
 
-        /* GIF Layout */
+        /* GIF Container - Left, Center, Right */
         .gif-container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 30px;
+            align-items: flex-end;
+            gap: 20px;
             margin-top: 40px;
-            width: 90%;
+            width: 95%;
+            flex-wrap: nowrap;
         }
 
         .gif-container img {
-            width: 280px;
+            width: 30%; /* Side by side */
+            max-width: 300px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .grayed-out { opacity: 0.5; cursor: not-allowed !important; }
+        .gray-out { opacity: 0.5; cursor: not-allowed !important; background-color: #ccc !important; }
     </style>
 </head>
 <body>
 
-    <div id="q1-area">
+    <div id="q1-screen">
         <h1>Will you be my valentine, Pallu?</h1>
-        <div class="btn-wrapper" id="q1-btns">
+        <div class="btn-wrapper">
             <button class="yes-style" onclick="openPopup()">Yes</button>
             <button id="noBtn" class="no-style" onmouseover="runAway()">No</button>
         </div>
     </div>
 
-    <div id="custom-popup">
-        <p style="font-size: 1.4rem; font-weight: bold; color: #333; margin-bottom: 25px;">Ek baar phir soch lo...</p>
+    <div id="popup-box">
+        <p style="font-size: 1.5rem; font-weight: bold; color: #333; margin-bottom: 30px;">Ek baar phir soch lo...</p>
         <div class="btn-wrapper">
-            <button class="yes-style" onclick="showQ2()">Yes</button>
-            <button class="no-style grayed-out" disabled>No</button>
+            <button class="yes-style" onclick="goToQ2()">Yes</button>
+            <button class="no-style gray-out" disabled>No</button>
         </div>
     </div>
 
-    <div id="q2-area">
+    <div id="q2-screen">
         <h1>Pakka ye last time hai soch lo, iske baad mukar nai sakte!</h1>
         <div class="btn-wrapper">
-            <button class="yes-style" onclick="showFinal()">Yes</button>
-            <button class="no-style grayed-out" disabled>No</button>
+            <button class="yes-style" onclick="goFinal()">Yes</button>
+            <button class="no-style gray-out" disabled>No</button>
         </div>
     </div>
 
-    <div id="success-screen" style="flex-direction: column; align-items: center;">
+    <div id="celebration-screen">
         <h1 style="font-size: 4rem;">Yay! I knew it! ❤️</h1>
         <div class="gif-container">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
         </div>
     </div>
 
@@ -129,21 +134,24 @@
         }
 
         function openPopup() {
-            document.getElementById('custom-popup').style.display = 'block';
-            document.getElementById('q1-area').style.opacity = '0.2';
+            document.getElementById('popup-box').style.display = 'block';
+            // Background remains pink, no graying out!
         }
 
-        function showQ2() {
-            document.getElementById('custom-popup').style.display = 'none';
-            document.getElementById('q1-area').style.display = 'none';
+        function goToQ2() {
+            document.getElementById('popup-box').style.display = 'none';
+            document.getElementById('q1-screen').style.display = 'none';
+            // Delete floating No button
             if(document.getElementById('noBtn')) document.getElementById('noBtn').remove();
             
-            document.getElementById('q2-area').style.display = 'block';
+            document.getElementById('q2-screen').style.display = 'block';
         }
 
-        function showFinal() {
-            document.getElementById('q2-area').style.display = 'none';
-            document.getElementById('success-screen').style.display = 'flex';
+        function goFinal() {
+            document.getElementById('q2-screen').style.display = 'none';
+            document.getElementById('celebration-screen').style.display = 'flex';
+            document.getElementById('celebration-screen').style.flexDirection = 'column';
+            document.getElementById('celebration-screen').style.alignItems = 'center';
         }
     </script>
 </body>
