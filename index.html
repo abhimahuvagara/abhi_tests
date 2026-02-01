@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Pallu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
@@ -15,7 +16,24 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
+        }
+
+        /* --- FANCY MOTION TEXT --- */
+        .fancy-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 6.5rem; /* Bada font size */
+            color: #D23369;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+            animation: heartbeat 1.5s infinite ease-in-out; /* Zoom in-out motion */
+            margin-bottom: 20px;
+        }
+
+        /* Heartbeat Animation Logic */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
         }
 
         .container {
@@ -33,11 +51,7 @@
             margin-bottom: 30px;
         }
 
-        .btn-wrapper { 
-            display: flex; 
-            gap: 25px; 
-            justify-content: center;
-        }
+        .btn-wrapper { display: flex; gap: 25px; justify-content: center; }
 
         button { 
             padding: 18px 45px; 
@@ -67,7 +81,6 @@
             text-align: center;
         }
 
-        /* --- FINAL HORIZONTAL CELEBRATION --- */
         #celebration {
             width: 100%;
             height: 100vh;
@@ -75,24 +88,22 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
         }
 
         .gif-row {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px; /* GIFs ke beech ka gap */
-            width: 95%;
-            margin-top: 40px;
+            gap: 20px;
+            width: 98%;
         }
 
-        .gif-row img {
-            width: 30%; /* Teeno ko barabar size milega */
-            max-width: 350px; /* Zyada bade na ho jayein laptop screen par */
+        .gif-box {
+            width: 31%;
+            max-width: 380px;
             border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            border: 5px solid white;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+            border: 6px solid white;
             background-color: white;
         }
 
@@ -120,17 +131,17 @@
     </div>
 
     <div id="celebration">
-        <h1 style="font-size: 5rem; margin-top: -50px;">I Love You! ❤️</h1>
+        <div class="fancy-text">I Love You! ❤️</div>
         
         <div class="gif-row">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
+            <img class="gif-box" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
+            <img class="gif-box" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
+            <img class="gif-box" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
         </div>
     </div>
 
     <div id="popup-box">
-        <p style="font-size: 1.6rem; font-weight: bold; color: #333;">Ek baar phir soch lo...</p>
+        <p style="font-size: 1.6rem; font-weight: bold;">Ek baar phir soch lo...</p>
         <div class="btn-wrapper">
             <button class="yes-style" onclick="revealStep2()">Yes</button>
             <button class="no-style locked" disabled>No</button>
@@ -145,9 +156,7 @@
             btn.style.top = Math.random() * (window.innerHeight - 80) + 'px';
         }
 
-        function showPopup() {
-            document.getElementById('popup-box').style.display = 'block';
-        }
+        function showPopup() { document.getElementById('popup-box').style.display = 'block'; }
 
         function revealStep2() {
             document.getElementById('popup-box').style.display = 'none';
@@ -161,19 +170,13 @@
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('celebration').style.display = 'flex';
             
-            // Unstoppable Confetti
-            var duration = 10 * 1000;
+            var duration = 15 * 1000;
             var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1001 };
-
-            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
             var interval = setInterval(function() {
                 var timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) return clearInterval(interval);
-                var particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                confetti({ particleCount: 50, spread: 80, origin: { x: 0.1, y: 0.5 } });
+                confetti({ particleCount: 50, spread: 80, origin: { x: 0.9, y: 0.5 } });
             }, 250);
         }
     </script>
