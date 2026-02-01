@@ -11,31 +11,33 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding-top: 80px;
-            height: 100vh;
+            padding-top: 50px;
+            min-height: 100vh;
             margin: 0;
             font-family: sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        h1 { font-size: 2.2rem; color: #D23369; text-align: center; margin-bottom: 30px; line-height: 1.3; }
+        .question-section { text-align: center; margin-bottom: 40px; width: 100%; }
+        h1 { font-size: 2rem; color: #D23369; margin-bottom: 20px; padding: 0 10px; }
 
         .btn-wrapper { display: flex; gap: 20px; justify-content: center; width: 100%; }
 
         button { padding: 12px 25px; font-size: 1rem; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; }
-
         .yes-style { background-color: #D23369; color: white; }
         .no-style { background-color: #f0f0f0; color: #333; }
 
-        /* Popup Style */
+        /* Hidden initially */
+        #second-question-area, #success-content, #custom-popup { display: none; }
+
+        /* Popup Box */
         #custom-popup {
-            display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             z-index: 9999;
@@ -43,40 +45,38 @@
             width: 280px;
         }
 
-        .grayed-out {
-            background-color: #ccc !important;
-            cursor: not-allowed !important;
-            opacity: 0.5;
-        }
+        .grayed-out { background-color: #ccc !important; cursor: not-allowed !important; opacity: 0.5; }
 
-        /* Success & Screen hiding */
-        #screen2, #success-content { display: none; width: 100%; }
         .gif-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
         .gif-box img { width: 150px; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="screen1">
-        <h1>Will you be my valentine, Pallu?</h1>
-        <div class="btn-wrapper">
-            <button class="yes-style" onclick="showPopup()">Yes</button>
-            <button id="noBtn" class="no-style" onmouseover="moveButton()">No</button>
+    <div id="main-content" style="width: 100%;">
+        
+        <div class="question-section" id="q1-area">
+            <h1>Will you be my valentine, Pallu?</h1>
+            <div class="btn-wrapper" id="q1-btns">
+                <button class="yes-style" onclick="showPopup()">Yes</button>
+                <button id="noBtn" class="no-style" onmouseover="moveButton()">No</button>
+            </div>
         </div>
+
+        <div class="question-section" id="second-question-area">
+            <h1>Pakka ye last time hai soch lo.<br>Iske baad mukar nai sakte!</h1>
+            <div class="btn-wrapper">
+                <button class="yes-style" onclick="finalVictory()">Yes</button>
+                <button class="no-style grayed-out" disabled>No</button>
+            </div>
+        </div>
+
     </div>
 
     <div id="custom-popup">
         <p style="color:#333;"><b>Ek baar phir soch lo...</b></p>
         <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
-            <button class="yes-style" onclick="goToSecondQuestion()">Yes</button>
-            <button class="no-style grayed-out" disabled>No</button>
-        </div>
-    </div>
-
-    <div id="screen2">
-        <h1>Pakka ye last time hai soch lo.<br>Iske baad mukar nai sakte!</h1>
-        <div class="btn-wrapper">
-            <button class="yes-style" onclick="finalVictory()">Yes</button>
+            <button class="yes-style" onclick="backToMainWithNewQuestion()">Yes</button>
             <button class="no-style grayed-out" disabled>No</button>
         </div>
     </div>
@@ -100,20 +100,26 @@
         }
 
         function showPopup() {
-            document.getElementById('screen1').style.opacity = '0.2';
+            // Screen ko blur/dim karo aur popup dikhao
+            document.getElementById('main-content').style.opacity = '0.3';
             document.getElementById('custom-popup').style.display = 'block';
         }
 
-        function goToSecondQuestion() {
-            // Hide everything else
-            document.getElementById('screen1').style.display = 'none';
+        function backToMainWithNewQuestion() {
+            // Popup band karo
             document.getElementById('custom-popup').style.display = 'none';
-            // Show the second question screen
-            document.getElementById('screen2').style.display = 'block';
+            // Main content wapas dikhao
+            document.getElementById('main-content').style.opacity = '1';
+            
+            // Purane buttons hide kar dete hain taaki wo niche wale pe focus kare
+            document.getElementById('q1-btns').style.visibility = 'hidden';
+            
+            // Naya sawal dikhao pehle wale ke niche
+            document.getElementById('second-question-area').style.display = 'block';
         }
 
         function finalVictory() {
-            document.getElementById('screen2').style.display = 'none';
+            document.getElementById('main-content').style.display = 'none';
             document.getElementById('success-content').style.display = 'block';
         }
     </script>
