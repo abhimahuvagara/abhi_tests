@@ -7,54 +7,55 @@
     <style>
         body {
             background-color: #FFD1DC !important;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 50px;
             min-height: 100vh;
-            margin: 0;
-            font-family: 'Arial', sans-serif;
         }
 
+        /* Bada font jaisa tumne maanga tha */
         h1 { 
-            font-size: 2.8rem; 
+            font-size: 2.5rem; 
             color: #D23369; 
             text-align: center;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
 
-        .section {
+        .container {
             width: 100%;
-            text-align: center;
-            margin-bottom: 50px;
-            transition: opacity 0.5s ease;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .btn-wrapper { 
             display: flex; 
-            gap: 25px; 
-            justify-content: center; 
+            gap: 20px; 
+            justify-content: center;
+            margin-bottom: 40px;
         }
 
         button { 
-            padding: 15px 35px; 
+            padding: 15px 30px; 
             font-size: 1.2rem; 
             border-radius: 12px; 
             border: none; 
             cursor: pointer; 
             font-weight: bold; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .yes-style { background-color: #D23369; color: white; }
         .no-style { background-color: #f0f0f0; color: #333; }
 
-        /* Hidden initially but on the same page */
-        #step2, #celebration, #popup-box {
-            display: none; 
-        }
+        /* Steps hidden initially */
+        #step2, #celebration, #popup-box { display: none; }
 
-        /* Popup overlay filter hatane ke liye simple box */
+        /* Popup Fixed without gray background */
         #popup-box {
             position: fixed;
             top: 50%;
@@ -63,90 +64,96 @@
             background: white;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            z-index: 10000;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            z-index: 100;
+            text-align: center;
         }
 
-        .gif-container {
+        /* GIFs layout: Left, Center, Right */
+        .gif-row {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
+            gap: 15px;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
 
-        .gif-container img {
-            width: 250px;
+        .gif-row img {
+            width: 200px; /* Adjust size to fit side-by-side */
             border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .disabled-btn { opacity: 0.5; cursor: not-allowed !important; }
+        .locked { opacity: 0.4; cursor: not-allowed !important; }
     </style>
 </head>
 <body>
 
-    <div id="step1" class="section">
-        <h1>Will you be my valentine, Pallu?</h1>
-        <div class="btn-wrapper" id="btns1">
-            <button class="yes-style" onclick="openPopup()">Yes</button>
-            <button id="noBtn" class="no-style" onmouseover="runAway()">No</button>
+    <div class="container">
+        <div id="step1">
+            <h1>Will you be my valentine, Pallu?</h1>
+            <div class="btn-wrapper" id="btns1">
+                <button class="yes-style" onclick="showPopup()">Yes</button>
+                <button id="noBtn" class="no-style" onmouseover="moveNo()">No</button>
+            </div>
+        </div>
+
+        <div id="step2">
+            <h1>Pakka ye last time hai soch lo, iske baad mukar nai sakte!</h1>
+            <div class="btn-wrapper" id="btns2">
+                <button class="yes-style" onclick="showGifs()">Yes</button>
+                <button class="no-style locked" disabled>No</button>
+            </div>
+        </div>
+
+        <div id="celebration">
+            <h1>Yay! I knew it! ❤️</h1>
+            <div class="gif-row">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
+            </div>
         </div>
     </div>
 
     <div id="popup-box">
-        <p style="font-size: 1.3rem; font-weight: bold;">Ek baar phir soch lo...</p>
+        <p style="font-size: 1.3rem; font-weight: bold; color: #333;">Ek baar phir soch lo...</p>
         <div class="btn-wrapper">
             <button class="yes-style" onclick="revealStep2()">Yes</button>
-            <button class="no-style disabled-btn" disabled>No</button>
-        </div>
-    </div>
-
-    <div id="step2" class="section">
-        <h1>Pakka ye last time hai soch lo, iske baad mukar nai sakte!</h1>
-        <div class="btn-wrapper" id="btns2">
-            <button class="yes-style" onclick="revealCelebration()">Yes</button>
-            <button class="no-style disabled-btn" disabled>No</button>
-        </div>
-    </div>
-
-    <div id="celebration" class="section">
-        <h1 style="font-size: 4rem;">Yay! I knew it! ❤️</h1>
-        <div class="gif-container">
-            <img src="https://media.giphy.com/media/KztT2c4u8mYYUiCiIn/giphy.gif">
-            <img src="https://media.giphy.com/media/MDJ9IbMv3V29y/giphy.gif">
-            <img src="https://media.giphy.com/media/c7QVDpQDQhMTAj02Y3/giphy.gif">
+            <button class="no-style locked" disabled>No</button>
         </div>
     </div>
 
     <script>
-        function runAway() {
+        function moveNo() {
             const btn = document.getElementById('noBtn');
             btn.style.position = 'fixed';
             btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
             btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
         }
 
-        function openPopup() {
+        function showPopup() {
             document.getElementById('popup-box').style.display = 'block';
         }
 
         function revealStep2() {
             document.getElementById('popup-box').style.display = 'none';
-            // Disable Q1 buttons but keep the text
-            document.getElementById('btns1').style.opacity = '0.3';
+            // Disable Q1
             document.getElementById('btns1').style.pointerEvents = 'none';
+            document.getElementById('btns1').style.opacity = '0.3';
             if(document.getElementById('noBtn')) document.getElementById('noBtn').remove();
-            
-            // Show next question below
+
+            // Show Q2
             document.getElementById('step2').style.display = 'block';
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
-        function revealCelebration() {
-            document.getElementById('btns2').style.opacity = '0.3';
+        function showGifs() {
+            // Disable Q2
             document.getElementById('btns2').style.pointerEvents = 'none';
-            
-            // Show celebration at the bottom
+            document.getElementById('btns2').style.opacity = '0.3';
+
+            // Show GIFs
             document.getElementById('celebration').style.display = 'block';
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
