@@ -10,45 +10,52 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            /* Changed from center to flex-start to move content up */
+            justify-content: flex-start; 
+            padding-top: 15vh; /* Moves everything to the upper middle */
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            overflow: hidden;
+            overflow: hidden; /* Prevents scrollbars if the button jumps far */
         }
 
         h1 {
-            font-size: 3rem;
-            color: #D23369; /* Darker pink for text */
+            font-size: 3.5rem;
+            color: #D23369;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px white;
         }
 
-        .buttons {
-            display: flex;
-            gap: 20px;
+        .container {
             position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
         }
 
         button {
-            padding: 15px 40px;
-            font-size: 1.2rem;
+            padding: 15px 45px;
+            font-size: 1.4rem;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 15px;
             border: none;
-            transition: 0.2s;
+            transition: all 0.1s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         #yesBtn {
-            background-color: #D23369; /* Dark highlight */
+            background-color: #D23369; /* Dark Pink highlight */
             color: white;
+            z-index: 10; /* Keeps Yes button on top */
         }
 
         #noBtn {
-            background-color: #f0f0f0; /* Gray/White box */
+            background-color: #e0e0e0; /* Gray box */
             color: #333;
-            position: absolute;
-            left: 130px; /* Positions it next to the Yes button */
+            position: absolute; /* Allows it to move freely */
+            margin-left: 200px; /* Initial gap from Yes button */
         }
     </style>
 </head>
@@ -56,24 +63,29 @@
 
     <h1>Will you be my valentine, Pallu?</h1>
 
-    <div class="buttons">
-        <button id="yesBtn" onclick="alert('Yay! I knew it! ❤️')">Yes</button>
-        <button id="noBtn">No</button>
+    <div class="container">
+        <button id="yesBtn" onclick="nextStep()">Yes</button>
+        <button id="noBtn" onmouseover="moveButton()">No</button>
     </div>
 
     <script>
-        const noBtn = document.getElementById('noBtn');
-
-        noBtn.addEventListener('mouseover', () => {
-            // Calculate random positions within the screen
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
             
-            // Move the button
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
-        });
+            // Calculate a random position within the visible window
+            // We subtract 100px to ensure it doesn't jump off the edge
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            
+            noBtn.style.position = 'fixed'; // Changes to fixed so it can move anywhere
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function nextStep() {
+            alert("Yay! Best decision ever! ❤️");
+            // You can tell me what should happen after she clicks YES!
+        }
     </script>
 
 </body>
