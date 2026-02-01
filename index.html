@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My First Project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Pallu</title>
+    <style>
+        body {
+            background-color: #FFD1DC; /* Baby Pink */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #D23369; /* Darker pink for text */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            transition: 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #D23369; /* Dark highlight */
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #f0f0f0; /* Gray/White box */
+            color: #333;
+            position: absolute;
+            left: 130px; /* Positions it next to the Yes button */
+        }
+    </style>
 </head>
 <body>
-    <h1>Success!</h1>
-    <p>This is my first project website on GitHub Pages.</p>
+
+    <h1>Will you be my valentine, Pallu?</h1>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="alert('Yay! I knew it! ❤️')">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+
+        noBtn.addEventListener('mouseover', () => {
+            // Calculate random positions within the screen
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            // Move the button
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+    </script>
+
 </body>
 </html>
