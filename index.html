@@ -14,21 +14,33 @@
             padding-top: 50px;
             min-height: 100vh;
             margin: 0;
-            font-family: sans-serif;
-            overflow-x: hidden;
+            font-family: 'Arial', sans-serif;
         }
 
-        .question-section { text-align: center; margin-bottom: 40px; width: 100%; }
-        h1 { font-size: 2rem; color: #D23369; margin-bottom: 20px; padding: 0 10px; }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
 
-        .btn-wrapper { display: flex; gap: 20px; justify-content: center; width: 100%; }
+        .question-box {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
 
-        button { padding: 12px 25px; font-size: 1rem; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; }
+        h1 { font-size: 1.8rem; color: #D23369; margin-bottom: 20px; padding: 0 15px; }
+
+        .btn-wrapper { display: flex; gap: 20px; justify-content: center; margin-top: 10px; }
+
+        button { padding: 12px 25px; font-size: 1rem; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .yes-style { background-color: #D23369; color: white; }
         .no-style { background-color: #f0f0f0; color: #333; }
 
         /* Hidden initially */
-        #second-question-area, #success-content, #custom-popup { display: none; }
+        #q2-area, #success-content, #custom-popup { display: none; }
 
         /* Popup Box */
         #custom-popup {
@@ -39,23 +51,23 @@
             background: white;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 10000;
             text-align: center;
             width: 280px;
         }
 
         .grayed-out { background-color: #ccc !important; cursor: not-allowed !important; opacity: 0.5; }
 
+        /* Celebration */
         .gif-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
-        .gif-box img { width: 150px; border-radius: 10px; }
+        .gif-box img { width: 140px; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="main-content" style="width: 100%;">
-        
-        <div class="question-section" id="q1-area">
+    <div class="main-container" id="all-questions">
+        <div class="question-box" id="q1-area">
             <h1>Will you be my valentine, Pallu?</h1>
             <div class="btn-wrapper" id="q1-btns">
                 <button class="yes-style" onclick="showPopup()">Yes</button>
@@ -63,26 +75,25 @@
             </div>
         </div>
 
-        <div class="question-section" id="second-question-area">
+        <div class="question-box" id="q2-area">
             <h1>Pakka ye last time hai soch lo.<br>Iske baad mukar nai sakte!</h1>
             <div class="btn-wrapper">
                 <button class="yes-style" onclick="finalVictory()">Yes</button>
                 <button class="no-style grayed-out" disabled>No</button>
             </div>
         </div>
-
     </div>
 
     <div id="custom-popup">
-        <p style="color:#333;"><b>Ek baar phir soch lo...</b></p>
+        <p style="color:#333; font-weight: bold;">Ek baar phir soch lo...</p>
         <div style="display:flex; gap:10px; justify-content:center; margin-top:20px;">
-            <button class="yes-style" onclick="backToMainWithNewQuestion()">Yes</button>
+            <button class="yes-style" onclick="revealSecondQuestion()">Yes</button>
             <button class="no-style grayed-out" disabled>No</button>
         </div>
     </div>
 
-    <div id="success-content">
-        <h1>Yay! I knew it! ❤️</h1>
+    <div id="success-content" style="text-align:center; padding: 20px;">
+        <h1 style="font-size: 2.5rem;">Yay! I knew it! ❤️</h1>
         <div class="gif-box">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
@@ -100,26 +111,26 @@
         }
 
         function showPopup() {
-            // Screen ko blur/dim karo aur popup dikhao
-            document.getElementById('main-content').style.opacity = '0.3';
+            document.getElementById('all-questions').style.opacity = '0.3';
             document.getElementById('custom-popup').style.display = 'block';
         }
 
-        function backToMainWithNewQuestion() {
+        function revealSecondQuestion() {
             // Popup band karo
             document.getElementById('custom-popup').style.display = 'none';
-            // Main content wapas dikhao
-            document.getElementById('main-content').style.opacity = '1';
+            // Screen wapas normal karo
+            document.getElementById('all-questions').style.opacity = '1';
             
-            // Purane buttons hide kar dete hain taaki wo niche wale pe focus kare
-            document.getElementById('q1-btns').style.visibility = 'hidden';
-            
-            // Naya sawal dikhao pehle wale ke niche
-            document.getElementById('second-question-area').style.display = 'block';
+            // Pehle sawal ke buttons ko disabled ya hide kar dete hain
+            document.getElementById('q1-btns').style.pointerEvents = 'none';
+            document.getElementById('q1-btns').style.opacity = '0.5';
+
+            // Dusra sawal thik pehle wale ke niche dikhao
+            document.getElementById('q2-area').style.display = 'block';
         }
 
         function finalVictory() {
-            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('all-questions').style.display = 'none';
             document.getElementById('success-content').style.display = 'block';
         }
     </script>
