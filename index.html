@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Pallu ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
             background-color: #FFD1DC !important;
@@ -16,72 +17,78 @@
             min-height: 100vh;
         }
 
-        /* Bada font jaisa tumne maanga tha */
-        h1 { 
-            font-size: 2.5rem; 
-            color: #D23369; 
-            text-align: center;
-            margin: 20px 0;
-        }
-
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 1200px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        h1 { 
+            font-size: 3rem; 
+            color: #D23369; 
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .single-line {
+            white-space: nowrap; 
+            display: block;
+        }
+
         .btn-wrapper { 
             display: flex; 
-            gap: 20px; 
+            gap: 25px; 
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         button { 
-            padding: 15px 30px; 
-            font-size: 1.2rem; 
-            border-radius: 12px; 
+            padding: 20px 45px; 
+            font-size: 1.4rem; 
+            border-radius: 15px; 
             border: none; 
             cursor: pointer; 
             font-weight: bold; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transition: 0.3s;
         }
 
         .yes-style { background-color: #D23369; color: white; }
         .no-style { background-color: #f0f0f0; color: #333; }
 
-        /* Steps hidden initially */
         #step2, #celebration, #popup-box { display: none; }
 
-        /* Popup Fixed without gray background */
         #popup-box {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 30px;
-            border-radius: 20px;
+            padding: 40px;
+            border-radius: 25px;
             box-shadow: 0 10px 50px rgba(0,0,0,0.3);
-            z-index: 100;
+            z-index: 1000;
             text-align: center;
         }
 
-        /* GIFs layout: Left, Center, Right */
-        .gif-row {
+        /* --- BIG GIFS LAYOUT --- */
+        .gif-stack {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px; /* Space between big GIFs */
+            margin-top: 50px;
+            width: 100%;
         }
 
-        .gif-row img {
-            width: 200px; /* Adjust size to fit side-by-side */
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .gif-stack img {
+            width: 80%; /* Takes up most of the screen width */
+            max-width: 800px; /* But not too crazy large */
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border: 5px solid white;
         }
 
         .locked { opacity: 0.4; cursor: not-allowed !important; }
@@ -99,16 +106,16 @@
         </div>
 
         <div id="step2">
-            <h1>Pakka? Ye last time hai soch lo!. Koi Jabardasti nai hai</h1>
+            <h1 class="single-line">Pakka ye last time hai soch lo, iske baad mukar nai sakte!</h1>
             <div class="btn-wrapper" id="btns2">
-                <button class="yes-style" onclick="showGifs()">Yes</button>
+                <button class="yes-style" onclick="launchCelebration()">Yes</button>
                 <button class="no-style locked" disabled>No</button>
             </div>
         </div>
 
         <div id="celebration">
-            <h1>I Love you, Pallu! Maja Kar❤️</h1>
-            <div class="gif-row">
+            <h1 style="font-size: 4.5rem;">Yay! I knew it! ❤️</h1>
+            <div class="gif-stack">
                 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif">
                 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif">
                 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2ZicnZubXFkNXpndHh6Zzl3eWV1djd6Znl6Znl6Znl6Znl6Znl6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDpQDQhMTAj02Y3/giphy.gif">
@@ -117,7 +124,7 @@
     </div>
 
     <div id="popup-box">
-        <p style="font-size: 1.3rem; font-weight: bold; color: #333;">Ek baar phir soch lo...</p>
+        <p style="font-size: 1.6rem; font-weight: bold; color: #333;">Ek baar phir soch lo...</p>
         <div class="btn-wrapper">
             <button class="yes-style" onclick="revealStep2()">Yes</button>
             <button class="no-style locked" disabled>No</button>
@@ -128,8 +135,8 @@
         function moveNo() {
             const btn = document.getElementById('noBtn');
             btn.style.position = 'fixed';
-            btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
-            btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            btn.style.left = Math.random() * (window.innerWidth - 150) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 80) + 'px';
         }
 
         function showPopup() {
@@ -138,23 +145,38 @@
 
         function revealStep2() {
             document.getElementById('popup-box').style.display = 'none';
-            // Disable Q1
-            document.getElementById('btns1').style.pointerEvents = 'none';
             document.getElementById('btns1').style.opacity = '0.3';
+            document.getElementById('btns1').style.pointerEvents = 'none';
             if(document.getElementById('noBtn')) document.getElementById('noBtn').remove();
-
-            // Show Q2
             document.getElementById('step2').style.display = 'block';
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
-        function showGifs() {
-            // Disable Q2
-            document.getElementById('btns2').style.pointerEvents = 'none';
+        function launchCelebration() {
             document.getElementById('btns2').style.opacity = '0.3';
-
-            // Show GIFs
+            document.getElementById('btns2').style.pointerEvents = 'none';
             document.getElementById('celebration').style.display = 'block';
+            
+            // Confetti Burst
+            var end = Date.now() + (5 * 1000);
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#D23369', '#FFD1DC', '#ffffff']
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#D23369', '#FFD1DC', '#ffffff']
+                });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
     </script>
