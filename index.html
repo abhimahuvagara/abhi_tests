@@ -2,23 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>For Pallu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Pallu ❤️</title>
     <style>
-        body { background-color: #FFD1DC; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 100px; height: 100vh; margin: 0; font-family: sans-serif; overflow: hidden; }
-        h1 { font-size: 3rem; color: #D23369; margin-bottom: 50px; text-align: center; }
-        .container { display: flex; gap: 40px; justify-content: center; width: 100%; position: relative; }
-        button { padding: 15px 30px; font-size: 1.2rem; border-radius: 10px; border: none; cursor: pointer; }
-        #yesBtn { background-color: #D23369; color: white; }
-        #noBtn { background-color: #e0e0e0; color: #333; }
+        body {
+            background-color: #FFD1DC;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 100px;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        h1 { font-size: 3rem; color: #D23369; text-align: center; margin-bottom: 50px; }
+
+        .btn-container { display: flex; gap: 30px; justify-content: center; width: 100%; position: relative; }
+
+        button { padding: 15px 35px; font-size: 1.2rem; border-radius: 12px; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        #yesBtn, #realYes { background-color: #D23369; color: white; }
+
+        #noBtn { background-color: #f0f0f0; color: #333; }
+
+        /* --- FAKE POPUP STYLE --- */
+        #custom-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-align: center;
+            width: 320px;
+        }
+
+        #fakeNo {
+            background-color: #ccc !important;
+            cursor: not-allowed !important;
+            opacity: 0.6;
+        }
+
+        /* --- SUCCESS ELEMENTS --- */
+        #gif-container { display: none; margin-top: 30px; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        #gif-container img { width: 180px; border-radius: 10px; }
+        .success-text { display: none; font-size: 2.5rem; color: #D23369; text-align: center; }
     </style>
 </head>
 <body>
 
-    <h1>Will you be my valentine, Pallu?</h1>
+    <h1 id="main-question">Will you be my valentine, Pallu?</h1>
 
-    <div class="container">
+    <div class="btn-container" id="btn-wrapper">
         <button id="yesBtn" onclick="nextStep()">Yes</button>
         <button id="noBtn" onmouseover="moveButton()">No</button>
+    </div>
+
+    <div id="custom-popup">
+        <p style="color:#333; font-weight:bold;">Phir se ek baar soch lo, <br>do you want to be my valentine?</p>
+        <div class="btn-container" style="gap:15px; margin-top:20px;">
+            <button id="realYes" onclick="finalSuccess()">Yes</button>
+            <button id="fakeNo" disabled>No</button>
+        </div>
+    </div>
+
+    <div id="success-message" class="success-text">Yay! I knew it! ❤️</div>
+    <div id="gif-container">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiIn/giphy.gif" alt="Cute GIF">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbMv3V29y/giphy.gif" alt="Cute GIF">
     </div>
 
     <script>
@@ -32,9 +90,20 @@
         }
 
         function nextStep() {
-            alert("Yay! ❤️");
+            // Hide main screen
+            document.getElementById('main-question').style.display = 'none';
+            document.getElementById('btn-wrapper').style.display = 'none';
+            // Show fake popup
+            document.getElementById('custom-popup').style.display = 'block';
+        }
+
+        function finalSuccess() {
+            // Hide popup
+            document.getElementById('custom-popup').style.display = 'none';
+            // Show final victory
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('gif-container').style.display = 'flex';
         }
     </script>
-
 </body>
 </html>
