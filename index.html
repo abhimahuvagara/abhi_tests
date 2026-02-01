@@ -2,66 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Pallu ❤️</title>
+    <title>For Pallu</title>
     <style>
-        body {
-            background-color: #FFD1DC; /* Baby Pink */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start; 
-            padding-top: 15vh; /* Moves content to upper-middle */
-            height: 100vh;
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
-
-        h1 {
-            font-size: 3rem;
-            color: #D23369;
-            text-align: center;
-            margin-bottom: 50px;
-            text-shadow: 2px 2px #fff;
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 30px; /* This keeps them separated initially */
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            position: relative;
-        }
-
-        button {
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        #yesBtn {
-            background-color: #D23369; /* Dark Highlight */
-            color: white;
-        }
-
-        #noBtn {
-            background-color: #f0f0f0; /* Usual gray box */
-            color: #333;
-            /* No absolute position here so it stays next to Yes at start */
-        }
+        body { background-color: #FFD1DC; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 100px; height: 100vh; margin: 0; font-family: sans-serif; overflow: hidden; }
+        h1 { font-size: 3rem; color: #D23369; margin-bottom: 50px; text-align: center; }
+        .container { display: flex; gap: 40px; justify-content: center; width: 100%; position: relative; }
+        button { padding: 15px 30px; font-size: 1.2rem; border-radius: 10px; border: none; cursor: pointer; }
+        #yesBtn { background-color: #D23369; color: white; }
+        #noBtn { background-color: #e0e0e0; color: #333; }
     </style>
 </head>
 <body>
 
     <h1>Will you be my valentine, Pallu?</h1>
 
-    <div class="btn-container">
+    <div class="container">
         <button id="yesBtn" onclick="nextStep()">Yes</button>
         <button id="noBtn" onmouseover="moveButton()">No</button>
     </div>
@@ -69,26 +24,15 @@
     <script>
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
-            
-            // On first hover, we switch it to fixed so it can fly anywhere
             noBtn.style.position = 'fixed';
-            
-            const padding = 20;
-            // Calculate boundaries so it stays on the page
-            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
-
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
-            noBtn.style.zIndex = "999";
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
         }
 
         function nextStep() {
-            alert("Yay! Best decision ever! ❤️");
-            // Next: We can add a surprise page or a video here!
+            alert("Yay! ❤️");
         }
     </script>
 
